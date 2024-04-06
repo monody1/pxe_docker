@@ -1,31 +1,36 @@
-# pxe_docker  
-自用pxe服务 ubuntu 20.04.6 live-server  
+# PXE Docker
 
-|-- Dockerfile  
-|-- apache2.conf                                        apache2 配置  
-|-- dnsmasq.conf                                        dnsmasq配置 提供DHCP和TFTP  
-|-- entrypoint.sh            
-|-- run.sh                 
-|-- squid.conf                                          squid代理 安装时提供网络访问  
-|-- tftp  
-|   |-- boot  
-|   |   `-- live-server             
-|   |       |-- initrd                                  from iso  
-|   |       `-- vmlinuz                                 from iso  
-|   |-- grub  
-|   |   |-- bootx64.efi                                 from iso  
-|   |   |-- font.pf2                                    from iso  
-|   |   `-- grub.cfg                                    Grub配置  
-|   `-- grubx64.efi                                     from iso  
-`-- www  
-    `-- html  
-        |-- autoinstall  
-        |   |-- meta-data  
-        |   `-- user-data                               自动安装配置    
-        |-- index.html    
-        `-- iso  
-            `-- ubuntu-20.04.6-live-server-amd64.iso    镜像文件  
-              
-/*注 1.docker 一定要使用host模式   
-     2.user-data 修改用户和密码sha-1(可用openssl 生成)  
-     3.user-data 分区表修改                           */  
+This is a PXE service using Ubuntu 20.04.6 live-server.
+
+## Directory Structure
+
+- `Dockerfile`
+- `apache2.conf` - Apache2 configuration
+- `dnsmasq.conf` - Dnsmasq configuration for DHCP and TFTP services
+- `entrypoint.sh`
+- `run.sh`
+- `squid.conf` - Squid proxy configuration for network access during installation
+- `tftp/`
+  - `boot/`
+    - `live-server/`
+      - `initrd` - from ISO
+      - `vmlinuz` - from ISO
+  - `grub/`
+    - `bootx64.efi` - from ISO
+    - `font.pf2` - from ISO
+    - `grub.cfg` - Grub configuration
+  - `grubx64.efi` - from ISO
+- `www/`
+  - `html/`
+    - `autoinstall/`
+      - `meta-data`
+      - `user-data` - auto-install configuration
+    - `index.html`
+    - `iso/`
+      - `ubuntu-20.04.6-live-server-amd64.iso` - ISO image file
+
+## Notes
+
+1. Docker should be run in host mode.
+2. Modify `user-data` to change username and password. Use SHA-1 hashing (can be generated with OpenSSL).
+3. Modify `user-data` for partitioning.
