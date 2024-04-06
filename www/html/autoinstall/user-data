@@ -1,0 +1,50 @@
+#cloud-config
+autoinstall:
+  version: 1
+  # 修改apt 服务地址
+  apt:
+    primary:
+    - arches: [default]
+      uri: https://mirrors.tuna.tsinghua.edu.cn/ubuntu
+  user-data:
+    # 配置时区
+    timezone: Asia/Shanghai
+    # 去使能 root账号
+    disable_root: true
+  # 配置用户  
+  identity:
+    hostname: server
+    password: ***************
+    username: monody
+  # 配置键盘  
+  keyboard: {layout: us, variant: ''}
+  proxy: http://192.168.1.5:3128
+  locale: en_US.UTF-8
+  # 默认安装ssh server
+  ssh:
+    install-server: true
+  # 配置磁盘分区
+  storage:
+    grub:
+      reorder_uefi: False
+    config:
+  # Configure the SSD /dev/sda
+      - {ptable: gpt, path: /dev/sda, wipe: superblock-recursive, preserve: false, name: '', grub_device: false, type: disk, id: disk-sda}
+      - {device: disk-sda, size: 1073741824, wipe: superblock, flag: boot, number: 1, preserve: false, grub_device: true, type: partition, id: partition-sda-boot}
+      - {fstype: fat32, volume: partition-sda-boot, preserve: false, type: format, id: format-sda-boot}
+      - {device: format-sda-boot, path: /boot/efi, type: mount, id: mount-sda-boot}
+      - {device: disk-sda, size: -1, wipe: superblock, flag: '', number: 2, preserve: false, type: partition, id: partition-sda-root}
+      - {fstype: ext4, volume: partition-sda-root, preserve: false, type: format, id: format-sda-root}
+      - {device: format-sda-root, path: /, type: mount, id: mount-sda-root}
+
+  # Configure the HDD Array /dev/sdb
+      - {ptable: gpt, path: /dev/sdb, wipe: superblock-recursive, preserve: false, name: '', grub_device: false, type: disk, id: disk-sdb}
+      - {device: disk-sdb, size: 1099511627776, wipe: superblock, flag: '', number: 1, preserve: false, type: partition, id: partition-sdb-tmp}
+      - {fstype: ext4, volume: partition-sdb-tmp, preserve: false, type: format, id: format-sdb-tmp}
+      - {device: format-sdb-tmp, path: /tmp, type: mount, id: mount-sdb-tmp}
+      - {device: disk-sdb, size: 1099511627776, wipe: superblock, flag: '', number: 2, preserve: false, type: partition, id: partition-sdb-var}
+      - {fstype: ext4, volume: partition-sdb-var, preserve: false, type: format, id: format-sdb-var}
+      - {device: format-sdb-var, path: /var, type: mount, id: mount-sdb-var}
+      - {device: disk-sdb, size: -1, wipe: superblock, flag: '', number: 3, preserve: false, type: partition, id: partition-sdb-home}
+      - {fstype: ext4, volume: partition-sdb-home, preserve: false, type: format, id: format-sdb-home}
+      - {device: format-sdb-home, path: /home, type: mount, id: mount-sdb-home}
