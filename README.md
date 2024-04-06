@@ -25,7 +25,7 @@
         |-- index.html
         `-- iso
             `-- ubuntu-20.04.6-live-server-amd64.iso    镜像文件
-
+            
 /*注 1.docker 一定要使用host模式 
      2.user-data 修改用户和密码sha-1(可用openssl 生成)
      3.user-data 分区表修改                           */
