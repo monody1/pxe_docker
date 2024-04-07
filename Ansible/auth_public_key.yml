@@ -1,0 +1,8 @@
+- hosts: all
+  tasks:
+    - name: Add SSH public key to authorized_keys file
+      authorized_key:
+        user: monody  # 目标用户的用户名
+        key: "{{ lookup('file', '********') }}"  # 你的公钥的路径
+        state: present
+

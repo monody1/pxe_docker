@@ -1,0 +1,7 @@
+- hosts: servers
+  become: yes
+  tasks:
+    - name: apply netplan configuration
+      become: yes
+      command: netplan apply
+

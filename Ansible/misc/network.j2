@@ -1,0 +1,19 @@
+# This is the network config written by 'subiquity'
+network:
+  ethernets:
+    eno1:
+      addresses:
+      - {{ eno1_ip_1 }}/24
+      - {{ eno1_ip_2 }}/24
+      gateway4: 10.14.4.1
+      nameservers:
+        addresses:
+        - 8.8.8.8
+        search: []
+    eno2:
+      dhcp4: true
+    ens6f0:
+      dhcp4: true
+    ens6f1:
+      dhcp4: true
+  version: 2

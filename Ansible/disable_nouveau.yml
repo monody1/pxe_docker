@@ -1,0 +1,19 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Blacklist Nouveau driver
+      copy:
+        dest: /etc/modprobe.d/blacklist-nouveau.conf
+        content: |
+          blacklist nouveau
+          options nouveau modeset=0
+
+    - name: Regenerate the initial ramdisk
+      command: update-initramfs -u
+
+    - name: Reboot the system
+      reboot:
+        msg: "Rebooting to apply changes and disable Nouveau"
+        reboot_timeout: 600
+

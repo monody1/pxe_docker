@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+
+    - name: Reboot the system
+      reboot:
+        msg: "Reboot"
+        reboot_timeout: 600
+

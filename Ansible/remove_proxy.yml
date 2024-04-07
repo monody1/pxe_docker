@@ -1,0 +1,22 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Remove proxy settings from /etc/apt/apt.conf.d/90curtin-aptproxy
+      ansible.builtin.lineinfile:
+        path: /etc/apt/apt.conf.d/90curtin-aptproxy
+        regexp: '^(Acquire::http::Proxy|Acquire::https::Proxy)'
+        state: absent
+
+    - name: Remove HTTP and HTTPS proxy settings from snapd service configuration
+      ansible.builtin.lineinfile:
+        path: /etc/systemd/system/snapd.service.d/snap_proxy.conf
+        regexp: '^Environment="(HTTP_PROXY|HTTPS_PROXY)=http://192.168.1.5:3128"$'
+        state: absent
+
+    - name: Reload systemd daemon and restart snapd service
+      ansible.builtin.systemd:
+        name: snapd
+        daemon_reload: yes
+        state: restarted
+

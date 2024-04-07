@@ -1,0 +1,14 @@
+- hosts: servers
+  become: yes
+  tasks:
+  - name: Modify network configuration
+    template:
+      src: /home/monody/Ansible/network.j2
+      dest: /etc/netplan/00-installer-config.yaml
+    notify:
+      - apply netplan configuration
+  handlers:
+  - name: apply netplan configuration
+    become: yes
+    command: netplan apply
+

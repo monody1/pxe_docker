@@ -1,0 +1,18 @@
+- hosts: servers
+  become: yes
+  tasks:
+    - name: Copy NVIDIA driver installer to target machine
+      copy:
+        src: /home/monody/Ansible/cuda_12.2.0_535.54.03_linux.run
+        dest: /home/monody/cuda_12.2.0_535.54.03_linux.run
+        mode: '0755'
+
+    - name: Run NVIDIA driver installer
+      command: /home/monody/cuda_12.2.0_535.54.03_linux.run --silent
+      #args:
+      # creates: /usr/bin/nvidia-smi
+      async: 1200 
+      poll: 30     
+
+
+

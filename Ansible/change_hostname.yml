@@ -1,0 +1,15 @@
+- hosts: servers
+  become: yes
+  tasks:
+    - name: Set hostname based on the last octet of the IP
+      command: hostnamectl set-hostname "server_{{ ansible_default_ipv4.address.split('.')[-1] }}"
+      when: ansible_default_ipv4.address is defined
+
+    - name: Update /etc/hosts with new hostname
+      lineinfile:
+        path: /etc/hosts
+        regexp: '127.0.1.1\s+.*'
+        line: "127.0.1.1 server_{{ ansible_default_ipv4.address.split('.')[-1] }}"
+        state: present
+      when: ansible_default_ipv4.address is defined
+

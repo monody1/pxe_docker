@@ -1,0 +1,11 @@
+[servers]
+server1 ansible_host=192.168.1.144 eno1_ip_1=192.168.1.144 eno1_ip_2=10.14.4.2
+server2 ansible_host=192.168.1.147 eno1_ip_1=192.168.1.147 eno1_ip_2=10.14.4.3
+server3 ansible_host=192.168.1.102 eno1_ip_1=192.168.1.102 eno1_ip_2=10.14.4.4
+server4 ansible_host=192.168.1.148 eno1_ip_1=192.168.1.148 eno1_ip_2=10.14.4.5
+server5 ansible_host=192.168.1.149 eno1_ip_1=192.168.1.149 eno1_ip_2=10.14.4.17
+server6 ansible_host=192.168.1.113 eno1_ip_1=192.168.1.113 eno1_ip_2=10.14.4.8
+server7 ansible_host=192.168.1.150 eno1_ip_1=192.168.1.150 eno1_ip_2=10.14.4.9
+server8 ansible_host=192.168.1.121 eno1_ip_1=192.168.1.121 eno1_ip_2=10.14.4.18
+server9 ansible_host=192.168.1.124 eno1_ip_1=192.168.1.124 eno1_ip_2=10.14.4.13
+
