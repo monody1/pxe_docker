@@ -31,6 +31,6 @@ This is a PXE service using Ubuntu 20.04.6 live-server.
 
 ## Notes
 
-1. Docker should be run in host mode.
+1. Container should be run in host mode.
 2. Modify `user-data` to change username and password. Use SHA-1 hashing (can be generated with OpenSSL).
 3. Modify `user-data` for partitioning.
